@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,5 +19,4 @@
   "devDependencies": {
     "vite": "^5.4.0"
   }
-  
 }
