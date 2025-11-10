@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 function Euro({ value }) {

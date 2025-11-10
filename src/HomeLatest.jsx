@@ -144,12 +144,4 @@ const cardStyle = {
   boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
 };
 
-const btnLink = {
-  display: "inline-block",
-  padding: "6px 10px",
-  borderRadius: 8,
-  background: "#111",
-  color: "#fff",
-  textDecoration: "none",
-  fontWeight: 600,
-};
+// leftover style constant removed to avoid unused-variable ESLint warning
