@@ -8,7 +8,7 @@ import EuroMillionsCharts from "./EuroMillionsCharts.jsx";
 import HomeLatest from "./HomeLatest.jsx";
 
 function parseRoute() {
-  const hash = location.hash.replace(/^#\/?/, "");
+  const hash = window.location.hash.replace(/^#\/?/, "");
   if (!hash) return { section: "home" };
   const [section, part2] = hash.split("/");
   return { section, part2 };
