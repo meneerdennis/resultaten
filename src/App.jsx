@@ -15,13 +15,23 @@ function parseRoute() {
 
 export default function App() {
   const [route, setRoute] = useState(parseRoute());
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   useEffect(() => {
     const onHash = () => setRoute(parseRoute());
     window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("hashchange", onHash);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const isHome = route.section === "home" || !route.section;
+  const isMobile = windowWidth < 700;
 
   return (
     <div
@@ -30,7 +40,7 @@ export default function App() {
           "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        padding: window.innerWidth < 700 ? 16 : 32,
+        padding: isMobile ? 16 : 32,
       }}
     >
       <div
@@ -39,7 +49,7 @@ export default function App() {
           margin: "0 auto",
           background: "rgba(255, 255, 255, 0.95)",
           borderRadius: 24,
-          padding: window.innerWidth < 700 ? 20 : 32,
+          padding: isMobile ? 20 : 32,
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -48,7 +58,7 @@ export default function App() {
         <h1
           style={{
             margin: "0 0 32px 0",
-            fontSize: window.innerWidth < 700 ? 28 : 36,
+            fontSize: isMobile ? 28 : 36,
             fontWeight: 700,
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             WebkitBackgroundClip: "text",
@@ -57,7 +67,7 @@ export default function App() {
             letterSpacing: "-0.02em",
           }}
         >
-          Lotto & EuroMillions
+          Lotto & EuroMillions Dashboard
         </h1>
 
         {/* Startpagina: recentste resultaten + 2 kolommen */}
@@ -75,6 +85,16 @@ export default function App() {
 function HomeLayout() {
   const [leftTab, setLeftTab] = useState("lotto"); // grafieken-tab
   const [rightTab, setRightTab] = useState("lotto"); // resultaten-tab
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const isMobile = windowWidth < 700;
 
   return (
     <>
@@ -83,8 +103,8 @@ function HomeLayout() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: window.innerWidth < 700 ? "1fr" : "1fr 1fr",
-          gap: window.innerWidth < 700 ? 12 : 16,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? 12 : 16,
           marginTop: 16,
         }}
       >
@@ -93,22 +113,22 @@ function HomeLayout() {
           <div
             style={{
               display: "flex",
-              gap: window.innerWidth < 700 ? 4 : 8,
+              gap: isMobile ? 4 : 8,
               marginBottom: 8,
-              flexWrap: window.innerWidth < 700 ? "wrap" : "nowrap",
+              flexWrap: isMobile ? "wrap" : "nowrap",
             }}
           >
             <button
               onClick={() => setLeftTab("lotto")}
-              style={tabBtn(leftTab === "lotto")}
+              style={tabBtn(leftTab === "lotto", isMobile)}
             >
-              {window.innerWidth < 700 ? "Lotto" : "Lotto grafieken"}
+              {isMobile ? "Lotto" : "Lotto grafieken"}
             </button>
             <button
               onClick={() => setLeftTab("euromillions")}
-              style={tabBtn(leftTab === "euromillions")}
+              style={tabBtn(leftTab === "euromillions", isMobile)}
             >
-              {window.innerWidth < 700 ? "EuroM" : "EuroMillions grafieken"}
+              {isMobile ? "EuroM" : "EuroMillions grafieken"}
             </button>
           </div>
           <div style={cardStyle}>
@@ -121,22 +141,22 @@ function HomeLayout() {
           <div
             style={{
               display: "flex",
-              gap: window.innerWidth < 700 ? 4 : 8,
+              gap: isMobile ? 4 : 8,
               marginBottom: 8,
-              flexWrap: window.innerWidth < 700 ? "wrap" : "nowrap",
+              flexWrap: isMobile ? "wrap" : "nowrap",
             }}
           >
             <button
               onClick={() => setRightTab("lotto")}
-              style={tabBtn(rightTab === "lotto")}
+              style={tabBtn(rightTab === "lotto", isMobile)}
             >
-              {window.innerWidth < 700 ? "Lotto" : "Lotto resultaten"}
+              {isMobile ? "Lotto" : "Lotto resultaten"}
             </button>
             <button
               onClick={() => setRightTab("euromillions")}
-              style={tabBtn(rightTab === "euromillions")}
+              style={tabBtn(rightTab === "euromillions", isMobile)}
             >
-              {window.innerWidth < 700 ? "EuroM" : "EuroMillions resultaten"}
+              {isMobile ? "EuroM" : "EuroMillions resultaten"}
             </button>
           </div>
           <div style={cardStyle}>
@@ -161,8 +181,7 @@ const cardStyle = {
   overflow: "hidden",
 };
 
-function tabBtn(active) {
-  const isMobile = window.innerWidth < 700;
+function tabBtn(active, isMobile) {
   return {
     padding: isMobile ? "12px 16px" : "10px 16px",
     borderRadius: 12,

@@ -14,7 +14,17 @@ function Euro({ value }) {
 }
 
 function Pill({ children }) {
-  const isMobile = window.innerWidth < 700;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const isMobile = windowWidth < 700;
+
   return (
     <span
       style={{
@@ -34,6 +44,14 @@ function Pill({ children }) {
 export default function LottoView() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -47,7 +65,7 @@ export default function LottoView() {
 
   if (loading) return <div>Loading…</div>;
 
-  const isMobile = window.innerWidth < 700;
+  const isMobile = windowWidth < 700;
 
   return (
     <div>

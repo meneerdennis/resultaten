@@ -3,7 +3,17 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 function Pill({ children }) {
-  const isMobile = window.innerWidth < 700;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const isMobile = windowWidth < 700;
+
   return (
     <span
       style={{
@@ -52,6 +62,14 @@ export default function HomeLatest() {
   const [lotto, setLotto] = useState(null);
   const [em, setEm] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -80,13 +98,13 @@ export default function HomeLatest() {
 
   if (loading) return <div>Laatste resultaten laden…</div>;
 
-  const isMobile = window.innerWidth < 700;
+  const isMobile = windowWidth < 700;
 
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: window.innerWidth < 700 ? "1fr" : "1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
         gap: isMobile ? 12 : 16,
       }}
     >
