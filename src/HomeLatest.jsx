@@ -3,14 +3,24 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 function Pill({ children }) {
+  const isMobile = window.innerWidth < 768;
   return (
     <span
       style={{
-        display: "inline-block",
-        padding: "4px 10px",
+        display: "inline-flex",
+        alignItems: "center",
+        padding: isMobile ? "8px 12px" : "6px 14px",
         borderRadius: 999,
-        background: "#f4f4f4",
-        marginRight: 6,
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        color: "#fff",
+        marginRight: isMobile ? 6 : 8,
+        marginBottom: isMobile ? 6 : 4,
+        fontSize: isMobile ? "13px" : "14px",
+        fontWeight: 600,
+        boxShadow: "0 2px 8px rgba(102, 126, 234, 0.3)",
+        transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        textShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
       }}
     >
       {children}
@@ -20,12 +30,21 @@ function Pill({ children }) {
 
 function Euro({ value }) {
   return (
-    <strong>
+    <span
+      style={{
+        fontWeight: 700,
+        background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+        fontSize: "1.1em",
+      }}
+    >
       {(Number(value) || 0).toLocaleString(undefined, {
         style: "currency",
         currency: "EUR",
       })}
-    </strong>
+    </span>
   );
 }
 
@@ -61,39 +80,120 @@ export default function HomeLatest() {
 
   if (loading) return <div>Laatste resultaten laden…</div>;
 
+  const isMobile = window.innerWidth < 768;
+
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        gap: isMobile ? 12 : 16,
+      }}
+    >
       {/* Lotto card */}
       <div style={cardStyle}>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "baseline",
+            alignItems: "center",
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? "12px" : "0",
+            marginBottom: "8px",
           }}
         >
-          <h2 style={{ margin: 0 }}>Laatste Lotto</h2>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: isMobile ? "20px" : "22px",
+              fontWeight: 700,
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Laatste Lotto
+          </h2>
           {lotto && (
-            <a href={`#/${"lotto"}/${lotto.id}`} style={{ fontSize: 14 }}>
-              detail →
+            <a
+              href={`#/${"lotto"}/${lotto.id}`}
+              style={{
+                fontSize: isMobile ? "13px" : "14px",
+                alignSelf: isMobile ? "flex-end" : "center",
+                color: "#667eea",
+                textDecoration: "none",
+                fontWeight: 600,
+                padding: "6px 12px",
+                borderRadius: "8px",
+                background: "rgba(102, 126, 234, 0.1)",
+                transition: "all 0.2s ease",
+                border: "1px solid rgba(102, 126, 234, 0.2)",
+              }}
+              onMouseOver={(e) => {
+                e.target.style.background = "rgba(102, 126, 234, 0.2)";
+                e.target.style.transform = "translateY(-1px)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.background = "rgba(102, 126, 234, 0.1)";
+                e.target.style.transform = "translateY(0)";
+              }}
+            >
+              Bekijk detail →
             </a>
           )}
         </div>
         {lotto ? (
           <>
-            <div style={{ color: "#666", marginTop: 4 }}>{lotto.id}</div>
-            <div style={{ marginTop: 8 }}>
+            <div
+              style={{
+                color: "#6b7280",
+                marginTop: 4,
+                fontSize: isMobile ? "14px" : "15px",
+                fontWeight: 500,
+                marginBottom: "12px",
+              }}
+            >
+              {lotto.id}
+            </div>
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+              }}
+            >
               {(lotto.numbers || []).map((n) => (
                 <Pill key={n}>{n}</Pill>
               ))}
-              <Pill>Bonus: {lotto.bonus}</Pill>
+              <Pill>★ {lotto.bonus}</Pill>
             </div>
-            <div style={{ marginTop: 8 }}>
+            <div
+              style={{
+                marginTop: 16,
+                fontSize: isMobile ? "15px" : "16px",
+                fontWeight: 600,
+                color: "#374151",
+              }}
+            >
               Totaal winst: <Euro value={lotto.total_win} />
             </div>
           </>
         ) : (
-          <div>Geen Lotto-data gevonden.</div>
+          <div
+            style={{
+              color: "#6b7280",
+              fontStyle: "italic",
+              padding: "20px",
+              textAlign: "center",
+              background: "rgba(107, 114, 128, 0.05)",
+              borderRadius: "12px",
+            }}
+          >
+            Geen Lotto-data gevonden.
+          </div>
         )}
       </div>
 
@@ -103,33 +203,122 @@ export default function HomeLatest() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "baseline",
+            alignItems: "center",
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? "12px" : "0",
+            marginBottom: "8px",
           }}
         >
-          <h2 style={{ margin: 0 }}>Laatste EuroMillions</h2>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: isMobile ? "20px" : "22px",
+              fontWeight: 700,
+              background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Laatste EuroMillions
+          </h2>
           {em && (
-            <a href={`#/${"euromillions"}/${em.id}`} style={{ fontSize: 14 }}>
-              detail →
+            <a
+              href={`#/${"euromillions"}/${em.id}`}
+              style={{
+                fontSize: isMobile ? "13px" : "14px",
+                alignSelf: isMobile ? "flex-end" : "center",
+                color: "#10b981",
+                textDecoration: "none",
+                fontWeight: 600,
+                padding: "6px 12px",
+                borderRadius: "8px",
+                background: "rgba(16, 185, 129, 0.1)",
+                transition: "all 0.2s ease",
+                border: "1px solid rgba(16, 185, 129, 0.2)",
+              }}
+              onMouseOver={(e) => {
+                e.target.style.background = "rgba(16, 185, 129, 0.2)";
+                e.target.style.transform = "translateY(-1px)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.background = "rgba(16, 185, 129, 0.1)";
+                e.target.style.transform = "translateY(0)";
+              }}
+            >
+              Bekijk detail →
             </a>
           )}
         </div>
         {em ? (
           <>
-            <div style={{ color: "#666", marginTop: 4 }}>{em.id}</div>
-            <div style={{ marginTop: 8 }}>
+            <div
+              style={{
+                color: "#6b7280",
+                marginTop: 4,
+                fontSize: isMobile ? "14px" : "15px",
+                fontWeight: 500,
+                marginBottom: "12px",
+              }}
+            >
+              {em.id}
+            </div>
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+              }}
+            >
               {(em.numbers || []).map((n) => (
-                <Pill key={n}>{n}</Pill>
+                <Pill
+                  key={n}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  }}
+                >
+                  {n}
+                </Pill>
               ))}
               {(em.stars || []).map((s) => (
-                <Pill key={s}>★ {s}</Pill>
+                <Pill
+                  key={s}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+                  }}
+                >
+                  ⭐ {s}
+                </Pill>
               ))}
             </div>
-            <div style={{ marginTop: 8 }}>
+            <div
+              style={{
+                marginTop: 16,
+                fontSize: isMobile ? "15px" : "16px",
+                fontWeight: 600,
+                color: "#374151",
+              }}
+            >
               Totaal winst: <Euro value={em.total_win} />
             </div>
           </>
         ) : (
-          <div>Geen EuroMillions-data gevonden.</div>
+          <div
+            style={{
+              color: "#6b7280",
+              fontStyle: "italic",
+              padding: "20px",
+              textAlign: "center",
+              background: "rgba(107, 114, 128, 0.05)",
+              borderRadius: "12px",
+            }}
+          >
+            Geen EuroMillions-data gevonden.
+          </div>
         )}
       </div>
     </div>
@@ -137,11 +326,22 @@ export default function HomeLatest() {
 }
 
 const cardStyle = {
-  border: "1px solid #eee",
-  borderRadius: 12,
-  padding: 16,
-  background: "#fff",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+  border: "1px solid rgba(102, 126, 234, 0.1)",
+  borderRadius: 20,
+  padding: window.innerWidth < 768 ? 20 : 24,
+  background: "rgba(255, 255, 255, 0.9)",
+  boxShadow: "0 8px 32px rgba(102, 126, 234, 0.1)",
+  backdropFilter: "blur(20px)",
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  position: "relative",
+  overflow: "hidden",
+  "&:before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "4px",
+    background: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
+  },
 };
-
-// leftover style constant removed to avoid unused-variable ESLint warning

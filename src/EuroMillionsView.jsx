@@ -14,14 +14,16 @@ function Euro({ value }) {
 }
 
 function Pill({ children }) {
+  const isMobile = window.innerWidth < 768;
   return (
     <span
       style={{
         display: "inline-block",
-        padding: "4px 10px",
+        padding: isMobile ? "6px 8px" : "4px 10px",
         borderRadius: 999,
         background: "#f4f4f4",
-        marginRight: 6,
+        marginRight: isMobile ? 4 : 6,
+        fontSize: isMobile ? "12px" : "14px",
       }}
     >
       {children}
@@ -45,90 +47,185 @@ export default function EuroMillionsView() {
 
   if (loading) return <div>Loading…</div>;
 
+  const isMobile = window.innerWidth < 768;
+
   return (
     <div>
-      <h2 style={{ marginBottom: 8 }}>EuroMillions</h2>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th
-              style={{
-                textAlign: "left",
-                borderBottom: "1px solid #ddd",
-                padding: 8,
-              }}
-            >
-              Datum
-            </th>
-            <th
-              style={{
-                textAlign: "left",
-                borderBottom: "1px solid #ddd",
-                padding: 8,
-              }}
-            >
-              Nummers
-            </th>
-            <th
-              style={{
-                textAlign: "left",
-                borderBottom: "1px solid #ddd",
-                padding: 8,
-              }}
-            >
-              Sterren
-            </th>
-            <th
-              style={{
-                textAlign: "right",
-                borderBottom: "1px solid #ddd",
-                padding: 8,
-              }}
-            >
-              Totaal winst
-            </th>
-            <th
-              style={{
-                textAlign: "left",
-                borderBottom: "1px solid #ddd",
-                padding: 8,
-              }}
-            >
-              Details
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+      <h2
+        style={{
+          marginBottom: 8,
+          fontSize: isMobile ? "18px" : "20px",
+        }}
+      >
+        EuroMillions
+      </h2>
+
+      {isMobile ? (
+        // Mobile: Card layout
+        <div style={{ display: "grid", gap: 12 }}>
           {rows.map((r) => (
-            <tr key={r.id}>
-              <td style={{ padding: 8 }}>
+            <div
+              key={r.id}
+              style={{
+                border: "1px solid #eee",
+                borderRadius: 8,
+                padding: 12,
+                background: "#fff",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+              }}
+            >
+              <div style={{ marginBottom: 8 }}>
                 <a
                   href={`#/${"euromillions"}/${r.id}`}
-                  style={{ textDecoration: "none", fontWeight: 600 }}
+                  style={{
+                    textDecoration: "none",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
                 >
                   {r.id}
                 </a>
-              </td>
-              <td style={{ padding: 8 }}>
+              </div>
+
+              <div
+                style={{
+                  marginBottom: 8,
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "4px",
+                }}
+              >
                 {(r.numbers || []).map((n) => (
                   <Pill key={n}>{n}</Pill>
                 ))}
-              </td>
-              <td style={{ padding: 8 }}>
+              </div>
+
+              <div
+                style={{
+                  marginBottom: 8,
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "4px",
+                }}
+              >
                 {(r.stars || []).map((s) => (
                   <Pill key={s}>★ {s}</Pill>
                 ))}
-              </td>
-              <td style={{ padding: 8, textAlign: "right" }}>
-                <Euro value={r.total_win} />
-              </td>
-              <td style={{ padding: 8 }}>
-                <a href={`#/${"euromillions"}/${r.id}`}>bekijk</a>
-              </td>
-            </tr>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  fontSize: "14px",
+                }}
+              >
+                <span>Totaal winst:</span>
+                <strong>
+                  <Euro value={r.total_win} />
+                </strong>
+              </div>
+
+              <div style={{ marginTop: 8, textAlign: "right" }}>
+                <a
+                  href={`#/${"euromillions"}/${r.id}`}
+                  style={{
+                    fontSize: "12px",
+                    color: "#007bff",
+                    textDecoration: "none",
+                  }}
+                >
+                  bekijk details →
+                </a>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      ) : (
+        // Desktop: Table layout
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              <th
+                style={{
+                  textAlign: "left",
+                  borderBottom: "1px solid #ddd",
+                  padding: 8,
+                }}
+              >
+                Datum
+              </th>
+              <th
+                style={{
+                  textAlign: "left",
+                  borderBottom: "1px solid #ddd",
+                  padding: 8,
+                }}
+              >
+                Nummers
+              </th>
+              <th
+                style={{
+                  textAlign: "left",
+                  borderBottom: "1px solid #ddd",
+                  padding: 8,
+                }}
+              >
+                Sterren
+              </th>
+              <th
+                style={{
+                  textAlign: "right",
+                  borderBottom: "1px solid #ddd",
+                  padding: 8,
+                }}
+              >
+                Totaal winst
+              </th>
+              <th
+                style={{
+                  textAlign: "left",
+                  borderBottom: "1px solid #ddd",
+                  padding: 8,
+                }}
+              >
+                Details
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.id}>
+                <td style={{ padding: 8 }}>
+                  <a
+                    href={`#/${"euromillions"}/${r.id}`}
+                    style={{ textDecoration: "none", fontWeight: 600 }}
+                  >
+                    {r.id}
+                  </a>
+                </td>
+                <td style={{ padding: 8 }}>
+                  {(r.numbers || []).map((n) => (
+                    <Pill key={n}>{n}</Pill>
+                  ))}
+                </td>
+                <td style={{ padding: 8 }}>
+                  {(r.stars || []).map((s) => (
+                    <Pill key={s}>★ {s}</Pill>
+                  ))}
+                </td>
+                <td style={{ padding: 8, textAlign: "right" }}>
+                  <Euro value={r.total_win} />
+                </td>
+                <td style={{ padding: 8 }}>
+                  <a href={`#/${"euromillions"}/${r.id}`}>bekijk</a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
