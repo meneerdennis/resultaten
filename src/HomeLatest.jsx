@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 function Pill({ children }) {
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
   return (
     <span
       style={{
@@ -80,13 +80,13 @@ export default function HomeLatest() {
 
   if (loading) return <div>Laatste resultaten laden…</div>;
 
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
 
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        gridTemplateColumns: window.innerWidth < 1024 ? "1fr" : "1fr 1fr",
         gap: isMobile ? 12 : 16,
       }}
     >
@@ -97,7 +97,7 @@ export default function HomeLatest() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            flexDirection: isMobile ? "column" : "row",
+            flexDirection: "column",
             gap: isMobile ? "12px" : "0",
             marginBottom: "8px",
           }}
@@ -121,7 +121,7 @@ export default function HomeLatest() {
               href={`#/${"lotto"}/${lotto.id}`}
               style={{
                 fontSize: isMobile ? "13px" : "14px",
-                alignSelf: isMobile ? "flex-end" : "center",
+                alignSelf: "flex-end",
                 color: "#667eea",
                 textDecoration: "none",
                 fontWeight: 600,
@@ -150,7 +150,7 @@ export default function HomeLatest() {
               style={{
                 color: "#6b7280",
                 marginTop: 4,
-                fontSize: isMobile ? "14px" : "15px",
+                fontSize: "15px",
                 fontWeight: 500,
                 marginBottom: "12px",
               }}
@@ -173,7 +173,7 @@ export default function HomeLatest() {
             <div
               style={{
                 marginTop: 16,
-                fontSize: isMobile ? "15px" : "16px",
+                fontSize: "16px",
                 fontWeight: 600,
                 color: "#374151",
               }}
@@ -204,7 +204,7 @@ export default function HomeLatest() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            flexDirection: isMobile ? "column" : "row",
+            flexDirection: "column",
             gap: isMobile ? "12px" : "0",
             marginBottom: "8px",
           }}
@@ -228,7 +228,7 @@ export default function HomeLatest() {
               href={`#/${"euromillions"}/${em.id}`}
               style={{
                 fontSize: isMobile ? "13px" : "14px",
-                alignSelf: isMobile ? "flex-end" : "center",
+                alignSelf: "flex-end",
                 color: "#10b981",
                 textDecoration: "none",
                 fontWeight: 600,
@@ -257,7 +257,7 @@ export default function HomeLatest() {
               style={{
                 color: "#6b7280",
                 marginTop: 4,
-                fontSize: isMobile ? "14px" : "15px",
+                fontSize: "15px",
                 fontWeight: 500,
                 marginBottom: "12px",
               }}
@@ -298,7 +298,7 @@ export default function HomeLatest() {
             <div
               style={{
                 marginTop: 16,
-                fontSize: isMobile ? "15px" : "16px",
+                fontSize: "16px",
                 fontWeight: 600,
                 color: "#374151",
               }}
@@ -328,7 +328,7 @@ export default function HomeLatest() {
 const cardStyle = {
   border: "1px solid rgba(102, 126, 234, 0.1)",
   borderRadius: 20,
-  padding: window.innerWidth < 768 ? 20 : 24,
+  padding: "24px",
   background: "rgba(255, 255, 255, 0.9)",
   boxShadow: "0 8px 32px rgba(102, 126, 234, 0.1)",
   backdropFilter: "blur(20px)",

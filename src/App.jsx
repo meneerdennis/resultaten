@@ -30,7 +30,7 @@ export default function App() {
           "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        padding: window.innerWidth < 768 ? 16 : 32,
+        padding: window.innerWidth < 1024 ? 16 : 32,
       }}
     >
       <div
@@ -39,7 +39,7 @@ export default function App() {
           margin: "0 auto",
           background: "rgba(255, 255, 255, 0.95)",
           borderRadius: 24,
-          padding: window.innerWidth < 768 ? 20 : 32,
+          padding: window.innerWidth < 1024 ? 20 : 32,
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -48,7 +48,7 @@ export default function App() {
         <h1
           style={{
             margin: "0 0 32px 0",
-            fontSize: window.innerWidth < 768 ? 28 : 36,
+            fontSize: window.innerWidth < 1024 ? 28 : 36,
             fontWeight: 700,
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             WebkitBackgroundClip: "text",
@@ -83,7 +83,7 @@ function HomeLayout() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "1fr 1fr",
+          gridTemplateColumns: window.innerWidth < 1024 ? "1fr" : "1fr 1fr",
           gap: window.innerWidth < 768 ? 12 : 16,
           marginTop: 16,
         }}
@@ -93,22 +93,22 @@ function HomeLayout() {
           <div
             style={{
               display: "flex",
-              gap: window.innerWidth < 768 ? 4 : 8,
+              gap: window.innerWidth < 1024 ? 4 : 8,
               marginBottom: 8,
-              flexWrap: window.innerWidth < 768 ? "wrap" : "nowrap",
+              flexWrap: window.innerWidth < 1024 ? "wrap" : "nowrap",
             }}
           >
             <button
               onClick={() => setLeftTab("lotto")}
               style={tabBtn(leftTab === "lotto")}
             >
-              {window.innerWidth < 768 ? "Lotto" : "Lotto grafieken"}
+              {window.innerWidth < 1024 ? "Lotto" : "Lotto grafieken"}
             </button>
             <button
               onClick={() => setLeftTab("euromillions")}
               style={tabBtn(leftTab === "euromillions")}
             >
-              {window.innerWidth < 768 ? "EuroM" : "EuroMillions grafieken"}
+              {window.innerWidth < 1024 ? "EuroM" : "EuroMillions grafieken"}
             </button>
           </div>
           <div style={cardStyle}>
@@ -121,22 +121,22 @@ function HomeLayout() {
           <div
             style={{
               display: "flex",
-              gap: window.innerWidth < 768 ? 4 : 8,
+              gap: window.innerWidth < 1024 ? 4 : 8,
               marginBottom: 8,
-              flexWrap: window.innerWidth < 768 ? "wrap" : "nowrap",
+              flexWrap: window.innerWidth < 1024 ? "wrap" : "nowrap",
             }}
           >
             <button
               onClick={() => setRightTab("lotto")}
               style={tabBtn(rightTab === "lotto")}
             >
-              {window.innerWidth < 768 ? "Lotto" : "Lotto resultaten"}
+              {window.innerWidth < 1024 ? "Lotto" : "Lotto resultaten"}
             </button>
             <button
               onClick={() => setRightTab("euromillions")}
               style={tabBtn(rightTab === "euromillions")}
             >
-              {window.innerWidth < 768 ? "EuroM" : "EuroMillions resultaten"}
+              {window.innerWidth < 1024 ? "EuroM" : "EuroMillions resultaten"}
             </button>
           </div>
           <div style={cardStyle}>
@@ -152,7 +152,7 @@ function HomeLayout() {
 const cardStyle = {
   border: "1px solid rgba(102, 126, 234, 0.1)",
   borderRadius: 16,
-  padding: window.innerWidth < 768 ? 16 : 20,
+  padding: 20,
   background: "rgba(255, 255, 255, 0.9)",
   boxShadow: "0 4px 20px rgba(102, 126, 234, 0.08)",
   backdropFilter: "blur(10px)",
@@ -162,7 +162,7 @@ const cardStyle = {
 };
 
 function tabBtn(active) {
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
   return {
     padding: isMobile ? "12px 16px" : "10px 16px",
     borderRadius: 12,

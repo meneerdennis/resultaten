@@ -14,7 +14,7 @@ function Euro({ value }) {
 }
 
 function Pill({ children }) {
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
   return (
     <span
       style={{
@@ -47,7 +47,7 @@ export default function EuroMillionsView() {
 
   if (loading) return <div>Loading…</div>;
 
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 1024;
 
   return (
     <div>
@@ -61,7 +61,7 @@ export default function EuroMillionsView() {
       </h2>
 
       {isMobile ? (
-        // Mobile: Card layout
+        // Mobile/Small: Card layout
         <div style={{ display: "grid", gap: 12 }}>
           {rows.map((r) => (
             <div
@@ -143,7 +143,7 @@ export default function EuroMillionsView() {
           ))}
         </div>
       ) : (
-        // Desktop: Table layout
+        // Large: Table layout
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
