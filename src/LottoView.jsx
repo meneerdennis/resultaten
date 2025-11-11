@@ -14,7 +14,7 @@ function Euro({ value }) {
 }
 
 function Pill({ children }) {
-  const isMobile = window.innerWidth < 1024;
+  const isMobile = window.innerWidth < 700;
   return (
     <span
       style={{
@@ -47,7 +47,7 @@ export default function LottoView() {
 
   if (loading) return <div>Loading…</div>;
 
-  const isMobile = window.innerWidth < 1024;
+  const isMobile = window.innerWidth < 700;
 
   return (
     <div>
