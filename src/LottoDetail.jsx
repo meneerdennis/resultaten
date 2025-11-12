@@ -47,7 +47,7 @@ export default function LottoDetail({ date }) {
 
   return (
     <div>
-      <a href="#/lotto" style={{ display: "inline-block", marginBottom: 12 }}>
+      <a href="#/" style={{ display: "inline-block", marginBottom: 12 }}>
         ← Terug naar overzicht
       </a>
       <h2>Trekking {date}</h2>

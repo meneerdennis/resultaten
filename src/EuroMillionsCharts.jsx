@@ -65,7 +65,7 @@ export default function EuroMillionsCharts() {
           lastMonth = monthKey;
         }
 
-        cum.push({ date: r.id, total_win: val, cum_win: running });
+        cum.push({ date: r.id, cum_win: running });
       }
 
       // winst per maand

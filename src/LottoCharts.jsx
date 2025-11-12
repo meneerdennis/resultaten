@@ -66,7 +66,7 @@ export default function LottoCharts() {
           lastMonth = monthKey;
         }
 
-        cum.push({ date: r.id, total_win: val, cum_win: running });
+        cum.push({ date: r.id, cum_win: running });
       }
 
       // 4) winst per maand (YYYY-MM)

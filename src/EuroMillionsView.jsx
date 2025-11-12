@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+import CalendarView from "./CalendarView.jsx";
 
 function Euro({ value }) {
   return (
@@ -23,7 +24,7 @@ function Pill({ children }) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const isMobile = windowWidth < 700;
+  const isMobile = windowWidth < 900;
 
   return (
     <span
@@ -65,7 +66,7 @@ export default function EuroMillionsView() {
 
   if (loading) return <div>Loading…</div>;
 
-  const isMobile = windowWidth < 700;
+  const isMobile = windowWidth < 900;
 
   return (
     <div>
@@ -77,6 +78,13 @@ export default function EuroMillionsView() {
       >
         EuroMillions
       </h2>
+
+      <CalendarView
+        type="euromillions"
+        onDateClick={(date) =>
+          (window.location.hash = `#/euromillions/${date}`)
+        }
+      />
 
       {isMobile ? (
         // Mobile/Small: Card layout

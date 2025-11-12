@@ -3,6 +3,9 @@ import LottoView from "./LottoView.jsx";
 import EuroMillionsView from "./EuroMillionsView.jsx";
 import EuroMillionsDetail from "./EuroMillionsDetail.jsx";
 import LottoDetail from "./LottoDetail.jsx";
+import CombinedView from "./CombinedView.jsx";
+import CombinedCharts from "./CombinedCharts.jsx";
+import CombinedDrawsTable from "./CombinedDrawsTable.jsx";
 import LottoCharts from "./LottoCharts.jsx";
 import EuroMillionsCharts from "./EuroMillionsCharts.jsx";
 import HomeLatest from "./HomeLatest.jsx";
@@ -32,7 +35,7 @@ export default function App() {
   }, []);
 
   const isHome = route.section === "home" || !route.section;
-  const isMobile = windowWidth < 700;
+  const isMobile = windowWidth < 900;
 
   return (
     <div
@@ -41,7 +44,7 @@ export default function App() {
           "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        padding: isMobile ? 16 : 32,
+        padding: isMobile ? 12 : 32,
       }}
     >
       <div
@@ -50,7 +53,7 @@ export default function App() {
           margin: "0 auto",
           background: "rgba(255, 255, 255, 0.95)",
           borderRadius: 24,
-          padding: isMobile ? 20 : 32,
+          padding: isMobile ? 16 : 32,
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -59,7 +62,7 @@ export default function App() {
         <h1
           style={{
             margin: "0 0 32px 0",
-            fontSize: isMobile ? 28 : 36,
+            fontSize: isMobile ? 24 : 36,
             fontWeight: 700,
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             WebkitBackgroundClip: "text",
@@ -73,6 +76,13 @@ export default function App() {
 
         {/* Startpagina: recentste resultaten + 2 kolommen */}
         {isHome && <HomeLayout />}
+
+        {/* Combined draws table - only show on home page */}
+        {isHome && (
+          <div style={{ marginTop: "24px" }}>
+            <CombinedDrawsTable />
+          </div>
+        )}
 
         {/* Lotto overzicht pagina */}
         {route.section === "lotto" && !route.part2 && <LottoView />}
@@ -91,6 +101,12 @@ export default function App() {
         {route.section === "euromillions" &&
           route.part2 &&
           route.part2 !== "charts" && <EuroMillionsDetail date={route.part2} />}
+
+        {/* Combined view pagina */}
+        {route.section === "combined" && <CombinedView />}
+
+        {/* Combined charts pagina */}
+        {route.section === "combined-charts" && <CombinedCharts />}
       </div>
     </div>
   );
@@ -98,8 +114,6 @@ export default function App() {
 
 /* Home lay-out: bovenaan laatste resultaten, daaronder twee kolommen */
 function HomeLayout() {
-  const [leftTab, setLeftTab] = useState("lotto"); // grafieken-tab
-  const [rightTab, setRightTab] = useState("lotto"); // resultaten-tab
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -109,7 +123,8 @@ function HomeLayout() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const isMobile = windowWidth < 700;
+  const isMobile = windowWidth < 900;
+  const isNarrow = windowWidth < 1100;
 
   return (
     <>
@@ -123,59 +138,37 @@ function HomeLayout() {
           marginTop: 16,
         }}
       >
-        {/* Linker kolom: grafieken */}
-        <div>
+        {/* Linker kolom: kalenderview */}
+        <div
+          style={{
+            minWidth: 0, // Allow column to shrink
+            overflow: "hidden", // Prevent overflow
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              gap: isMobile ? 4 : 8,
-              marginBottom: 8,
-              flexWrap: isMobile ? "wrap" : "nowrap",
+              ...cardStyle,
+              padding: isNarrow ? 12 : 20, // Reduce padding on narrow screens
             }}
           >
-            <button
-              onClick={() => setLeftTab("lotto")}
-              style={tabBtn(leftTab === "lotto", isMobile)}
-            >
-              {isMobile ? "Lotto" : "Lotto grafieken"}
-            </button>
-            <button
-              onClick={() => setLeftTab("euromillions")}
-              style={tabBtn(leftTab === "euromillions", isMobile)}
-            >
-              {isMobile ? "EuroM" : "EuroMillions grafieken"}
-            </button>
-          </div>
-          <div style={cardStyle}>
-            {leftTab === "lotto" ? <LottoCharts /> : <EuroMillionsCharts />}
+            <CombinedView />
           </div>
         </div>
 
-        {/* Rechter kolom: uitgebreide resultaten */}
-        <div>
+        {/* Rechter kolom: grafieken */}
+        <div
+          style={{
+            minWidth: 0, // Allow column to shrink
+            overflow: "hidden", // Prevent overflow
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              gap: isMobile ? 4 : 8,
-              marginBottom: 8,
-              flexWrap: isMobile ? "wrap" : "nowrap",
+              ...cardStyle,
+              padding: isNarrow ? 12 : 20, // Reduce padding on narrow screens
             }}
           >
-            <button
-              onClick={() => setRightTab("lotto")}
-              style={tabBtn(rightTab === "lotto", isMobile)}
-            >
-              {isMobile ? "Lotto" : "Lotto resultaten"}
-            </button>
-            <button
-              onClick={() => setRightTab("euromillions")}
-              style={tabBtn(rightTab === "euromillions", isMobile)}
-            >
-              {isMobile ? "EuroM" : "EuroMillions resultaten"}
-            </button>
-          </div>
-          <div style={cardStyle}>
-            {rightTab === "lotto" ? <LottoView /> : <EuroMillionsView />}
+            <EuroMillionsCharts />
           </div>
         </div>
       </div>

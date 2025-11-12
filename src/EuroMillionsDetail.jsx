@@ -47,10 +47,7 @@ export default function EuroMillionsDetail({ date }) {
 
   return (
     <div>
-      <a
-        href="#/euromillions"
-        style={{ display: "inline-block", marginBottom: 12 }}
-      >
+      <a href="#/" style={{ display: "inline-block", marginBottom: 12 }}>
         ← Terug naar overzicht
       </a>
       <h2>Trekking {date}</h2>
