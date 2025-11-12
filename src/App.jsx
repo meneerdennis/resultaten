@@ -5,10 +5,10 @@ import EuroMillionsDetail from "./EuroMillionsDetail.jsx";
 import LottoDetail from "./LottoDetail.jsx";
 import CombinedView from "./CombinedView.jsx";
 import CombinedCharts from "./CombinedCharts.jsx";
-import CombinedDrawsTable from "./CombinedDrawsTable.jsx";
 import LottoCharts from "./LottoCharts.jsx";
 import EuroMillionsCharts from "./EuroMillionsCharts.jsx";
 import HomeLatest from "./HomeLatest.jsx";
+import CombinedDrawsTable from "./CombinedDrawsTable.jsx";
 
 function parseRoute() {
   const hash = window.location.hash.replace(/^#\/?/, "");
@@ -77,13 +77,6 @@ export default function App() {
         {/* Startpagina: recentste resultaten + 2 kolommen */}
         {isHome && <HomeLayout />}
 
-        {/* Combined draws table - only show on home page */}
-        {isHome && (
-          <div style={{ marginTop: "24px" }}>
-            <CombinedDrawsTable />
-          </div>
-        )}
-
         {/* Lotto overzicht pagina */}
         {route.section === "lotto" && !route.part2 && <LottoView />}
 
@@ -114,6 +107,8 @@ export default function App() {
 
 /* Home lay-out: bovenaan laatste resultaten, daaronder twee kolommen */
 function HomeLayout() {
+  const [leftTab, setLeftTab] = useState("combined"); // grafieken-tab
+  const [rightTab, setRightTab] = useState("combined"); // resultaten-tab
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -136,6 +131,7 @@ function HomeLayout() {
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
           gap: isMobile ? 12 : 16,
           marginTop: 16,
+          alignItems: "stretch", // Make columns equal height
         }}
       >
         {/* Linker kolom: kalenderview */}
@@ -143,15 +139,26 @@ function HomeLayout() {
           style={{
             minWidth: 0, // Allow column to shrink
             overflow: "hidden", // Prevent overflow
+            display: "flex", // Use flexbox for equal height
+            flexDirection: "column", // Stack content vertically
           }}
         >
           <div
             style={{
               ...cardStyle,
               padding: isNarrow ? 12 : 20, // Reduce padding on narrow screens
+              flex: 1, // Take available space
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <CombinedView />
+            {rightTab === "combined" ? (
+              <CombinedView />
+            ) : rightTab === "lotto" ? (
+              <LottoView />
+            ) : (
+              <EuroMillionsView />
+            )}
           </div>
         </div>
 
@@ -160,16 +167,45 @@ function HomeLayout() {
           style={{
             minWidth: 0, // Allow column to shrink
             overflow: "hidden", // Prevent overflow
+            display: "flex", // Use flexbox for equal height
+            flexDirection: "column", // Stack content vertically
           }}
         >
           <div
             style={{
               ...cardStyle,
               padding: isNarrow ? 12 : 20, // Reduce padding on narrow screens
+              flex: 1, // Take available space
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <EuroMillionsCharts />
+            {leftTab === "combined" ? (
+              <CombinedCharts />
+            ) : leftTab === "lotto" ? (
+              <LottoCharts />
+            ) : (
+              <EuroMillionsCharts />
+            )}
           </div>
+        </div>
+      </div>
+
+      {/* Combined Draws Table Section */}
+      <div
+        style={{
+          marginTop: 16,
+          minWidth: 0,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            ...cardStyle,
+            padding: isNarrow ? 12 : 20,
+          }}
+        >
+          <CombinedDrawsTable />
         </div>
       </div>
     </>
