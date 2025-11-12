@@ -212,7 +212,7 @@ export default function CombinedCharts() {
             <Line
               type="monotone"
               dataKey="lotto_cum"
-              stroke="#2196f3"
+              stroke="#f44336"
               strokeWidth={2}
               dot={false}
               name="Lotto Cumulatief"
@@ -220,7 +220,7 @@ export default function CombinedCharts() {
             <Line
               type="monotone"
               dataKey="euro_cum"
-              stroke="#9c27b0"
+              stroke="#2196f3"
               strokeWidth={2}
               dot={false}
               name="EuroMillions Cumulatief"
@@ -228,7 +228,7 @@ export default function CombinedCharts() {
             <Line
               type="monotone"
               dataKey="total_cum"
-              stroke="#ff6b35"
+              stroke="#00ff15ff"
               strokeWidth={3}
               dot={false}
               name="Totaal Cumulatief"
@@ -237,6 +237,41 @@ export default function CombinedCharts() {
           </LineChart>
         </ResponsiveContainer>
       </ChartCard>
+
+      <div style={{ marginBottom: "8px", fontWeight: "600" }}>Legenda:</div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "16px",
+          marginBottom: "16px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div
+            style={{ width: "20px", height: "3px", background: "#f44336" }}
+          ></div>
+          <span>Lotto</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div
+            style={{ width: "20px", height: "3px", background: "#2196f3" }}
+          ></div>
+          <span>EuroMillions</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "3px",
+              background: "#00ff15ff",
+              borderStyle: "dashed",
+              borderWidth: "1px",
+            }}
+          ></div>
+          <span>Totaal</span>
+        </div>
+      </div>
 
       <ChartCard title="Winst per maand">
         <ResponsiveContainer>
@@ -251,8 +286,8 @@ export default function CombinedCharts() {
             />
             <YAxis />
             <Tooltip formatter={(v) => euroFmt(v)} />
-            <Bar dataKey="lotto_sum" name="Lotto" fill="#2196f3" />
-            <Bar dataKey="euro_sum" name="EuroMillions" fill="#9c27b0" />
+            <Bar dataKey="lotto_sum" name="Lotto" fill="#f44336" />
+            <Bar dataKey="euro_sum" name="EuroMillions" fill="#2196f3" />
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>
@@ -270,27 +305,15 @@ export default function CombinedCharts() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <div
+              style={{ width: "20px", height: "3px", background: "#f44336" }}
+            ></div>
+            <span>Lotto</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <div
               style={{ width: "20px", height: "3px", background: "#2196f3" }}
             ></div>
-            <span>Lotto Cumulatief</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div
-              style={{ width: "20px", height: "3px", background: "#9c27b0" }}
-            ></div>
-            <span>EuroMillions Cumulatief</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div
-              style={{
-                width: "20px",
-                height: "3px",
-                background: "#ff6b35",
-                borderStyle: "dashed",
-                borderWidth: "1px",
-              }}
-            ></div>
-            <span>Totaal Cumulatief</span>
+            <span>EuroMillions</span>
           </div>
         </div>
       </div>

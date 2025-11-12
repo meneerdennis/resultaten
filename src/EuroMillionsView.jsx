@@ -32,9 +32,10 @@ function Pill({ children }) {
         display: "inline-block",
         padding: isMobile ? "6px 8px" : "4px 10px",
         borderRadius: 999,
-        background: "#f4f4f4",
+        background: "#e3f2fd",
         marginRight: isMobile ? 4 : 6,
         fontSize: isMobile ? "12px" : "14px",
+        border: "1px solid #2196f3",
       }}
     >
       {children}
@@ -158,7 +159,7 @@ export default function EuroMillionsView() {
                   href={`#/${"euromillions"}/${r.id}`}
                   style={{
                     fontSize: "12px",
-                    color: "#007bff",
+                    color: "#2196f3",
                     textDecoration: "none",
                   }}
                 >

@@ -69,7 +69,7 @@ export default function App() {
             letterSpacing: "-0.02em",
           }}
         >
-          Lotto & EuroMillions Dashboard
+          Lotto & EuroMillions resultaten
         </h1>
 
         {/* Startpagina: recentste resultaten + 2 kolommen */}

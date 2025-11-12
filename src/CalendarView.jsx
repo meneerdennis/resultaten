@@ -112,7 +112,11 @@ export default function CalendarView({ type, onDateClick }) {
             borderRadius: "8px",
             textAlign: "center",
             cursor: hasData ? "pointer" : "default",
-            background: hasData ? "rgba(102, 126, 234, 0.1)" : "transparent",
+            background: hasData
+              ? type === "lotto"
+                ? "rgba(244, 67, 54, 0.1)"
+                : "rgba(33, 150, 243, 0.1)"
+              : "transparent",
             transition: "all 0.2s ease",
             position: "relative",
             minHeight: isMobile ? "50px" : "60px",
@@ -136,7 +140,7 @@ export default function CalendarView({ type, onDateClick }) {
             <div
               style={{
                 fontSize: isMobile ? "10px" : "12px",
-                color: "#667eea",
+                color: type === "lotto" ? "#f44336" : "#2196f3",
                 fontWeight: "500",
                 marginTop: "2px",
               }}

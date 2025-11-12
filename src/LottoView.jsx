@@ -32,9 +32,10 @@ function Pill({ children }) {
         display: "inline-block",
         padding: isMobile ? "6px 8px" : "4px 10px",
         borderRadius: 999,
-        background: "#f4f4f4",
+        background: "#ffebee",
         marginRight: isMobile ? 4 : 6,
         fontSize: isMobile ? "12px" : "14px",
+        border: "1px solid #f44336",
       }}
     >
       {children}
@@ -144,7 +145,7 @@ export default function LottoView() {
                   href={`#/${"lotto"}/${r.id}`}
                   style={{
                     fontSize: "12px",
-                    color: "#007bff",
+                    color: "#f44336",
                     textDecoration: "none",
                   }}
                 >

@@ -30,10 +30,10 @@ function Pill({ children, type }) {
         display: "inline-block",
         padding: isMobile ? "4px 6px" : "4px 10px",
         borderRadius: 999,
-        background: type === "lotto" ? "#e3f2fd" : "#f3e5f5",
+        background: type === "lotto" ? "#ffebee" : "#e3f2fd",
         marginRight: isMobile ? 3 : 6,
         fontSize: isMobile ? "11px" : "14px",
-        border: `1px solid ${type === "lotto" ? "#2196f3" : "#9c27b0"}`,
+        border: `1px solid ${type === "lotto" ? "#f44336" : "#2196f3"}`,
       }}
     >
       {children}
@@ -127,7 +127,7 @@ export default function CombinedDrawsTable() {
               key={`${r.type}-${r.id}`}
               style={{
                 border: `2px solid ${
-                  r.type === "lotto" ? "#2196f3" : "#9c27b0"
+                  r.type === "lotto" ? "#f44336" : "#2196f3"
                 }`,
                 borderRadius: 8,
                 padding: 12,
@@ -149,7 +149,7 @@ export default function CombinedDrawsTable() {
                     textDecoration: "none",
                     fontWeight: 600,
                     fontSize: "16px",
-                    color: r.type === "lotto" ? "#2196f3" : "#9c27b0",
+                    color: r.type === "lotto" ? "#f44336" : "#2196f3",
                   }}
                 >
                   {r.id}
@@ -159,8 +159,8 @@ export default function CombinedDrawsTable() {
                     fontSize: "12px",
                     padding: "4px 8px",
                     borderRadius: 12,
-                    background: r.type === "lotto" ? "#e3f2fd" : "#f3e5f5",
-                    color: r.type === "lotto" ? "#1976d2" : "#7b1fa2",
+                    background: r.type === "lotto" ? "#ffebee" : "#e3f2fd",
+                    color: r.type === "lotto" ? "#d32f2f" : "#1976d2",
                     fontWeight: "600",
                   }}
                 >
@@ -218,7 +218,7 @@ export default function CombinedDrawsTable() {
                   href={`#/${r.type}/${r.id}`}
                   style={{
                     fontSize: "12px",
-                    color: r.type === "lotto" ? "#2196f3" : "#9c27b0",
+                    color: r.type === "lotto" ? "#f44336" : "#2196f3",
                     textDecoration: "none",
                   }}
                 >
@@ -319,8 +319,8 @@ export default function CombinedDrawsTable() {
                         fontSize: "12px",
                         padding: "4px 8px",
                         borderRadius: 8,
-                        background: r.type === "lotto" ? "#e3f2fd" : "#f3e5f5",
-                        color: r.type === "lotto" ? "#1976d2" : "#7b1fa2",
+                        background: r.type === "lotto" ? "#ffebee" : "#e3f2fd",
+                        color: r.type === "lotto" ? "#d32f2f" : "#1976d2",
                         fontWeight: "600",
                         display: "inline-block",
                       }}
