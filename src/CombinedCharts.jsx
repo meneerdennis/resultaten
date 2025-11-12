@@ -22,12 +22,9 @@ function euroFmt(v) {
 }
 
 export default function CombinedCharts() {
-  const [lottoData, setLottoData] = useState([]);
-  const [euromillionsData, setEuromillionsData] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
   const [monthCombinedData, setMonthCombinedData] = useState([]);
   const [monthTicks, setMonthTicks] = useState([]);
-  const [year, setYear] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,8 +49,6 @@ export default function CombinedCharts() {
         }));
 
         if (!lottoRows.length && !euromillionsRows.length) {
-          setLottoData([]);
-          setEuromillionsData([]);
           setCombinedData([]);
           setMonthCombinedData([]);
           setLoading(false);
@@ -68,7 +63,6 @@ export default function CombinedCharts() {
           new Set(allRows.map((r) => r.id.slice(0, 4)))
         ).sort();
         const targetYear = years[years.length - 1];
-        setYear(targetYear);
 
         const lottoInYear = lottoRows.filter((r) =>
           r.id.startsWith(targetYear)
@@ -186,8 +180,6 @@ export default function CombinedCharts() {
             (lottoByMonth.get(month) || 0) + (euroByMonth.get(month) || 0),
         }));
 
-        setLottoData(lottoCum);
-        setEuromillionsData(euroCum);
         setCombinedData(combinedCum);
         setMonthCombinedData(monthData);
         setMonthTicks(lottoTicks); // Use lotto ticks as reference

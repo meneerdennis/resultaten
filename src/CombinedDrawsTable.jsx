@@ -91,22 +91,6 @@ export default function CombinedDrawsTable() {
 
   const isMobile = windowWidth < 900;
 
-  const handleDateClick = (date, type) => {
-    window.location.hash = `#/${type}/${date}`;
-  };
-
-  const renderNumberPills = (numbers, stars = []) => {
-    const allNumbers = [...(numbers || []), ...(stars || [])];
-    return allNumbers.map((num, index) => (
-      <Pill
-        key={`${num}-${index}`}
-        type={stars.includes(num) ? "euromillions" : "lotto"}
-      >
-        {stars.includes(num) ? `★ ${num}` : num}
-      </Pill>
-    ));
-  };
-
   return (
     <div
       style={{
