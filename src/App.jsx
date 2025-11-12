@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LottoView from "./LottoView.jsx";
 import EuroMillionsView from "./EuroMillionsView.jsx";
 import EuroMillionsDetail from "./EuroMillionsDetail.jsx";
+import LottoDetail from "./LottoDetail.jsx";
 import LottoCharts from "./LottoCharts.jsx";
 import EuroMillionsCharts from "./EuroMillionsCharts.jsx";
 import HomeLatest from "./HomeLatest.jsx";
@@ -72,6 +73,10 @@ export default function App() {
 
         {/* Startpagina: recentste resultaten + 2 kolommen */}
         {isHome && <HomeLayout />}
+
+        {route.section === "lotto" &&
+          route.part2 &&
+          route.part2 !== "charts" && <LottoDetail date={route.part2} />}
 
         {route.section === "euromillions" &&
           route.part2 &&
