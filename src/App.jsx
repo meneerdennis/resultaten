@@ -74,10 +74,20 @@ export default function App() {
         {/* Startpagina: recentste resultaten + 2 kolommen */}
         {isHome && <HomeLayout />}
 
+        {/* Lotto overzicht pagina */}
+        {route.section === "lotto" && !route.part2 && <LottoView />}
+
+        {/* Lotto detail pagina */}
         {route.section === "lotto" &&
           route.part2 &&
           route.part2 !== "charts" && <LottoDetail date={route.part2} />}
 
+        {/* EuroMillions overzicht pagina */}
+        {route.section === "euromillions" && !route.part2 && (
+          <EuroMillionsView />
+        )}
+
+        {/* EuroMillions detail pagina */}
         {route.section === "euromillions" &&
           route.part2 &&
           route.part2 !== "charts" && <EuroMillionsDetail date={route.part2} />}
